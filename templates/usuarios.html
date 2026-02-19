@@ -1,11 +1,34 @@
-{%extends "layout.html"%}
-{%block container%}
-{%import "macros.html" as macro%}
+{%extends "layout.html"%} {%block container%} {%import "macros.html" as macro%}
+<div class=""></div>
 <form action="/usuarios" method="post">
-    {{macro.campoNuevo(form.nombre)}}
-    {{macro.campoNuevo(form.apaterno)}}
-    {{macro.campoNuevo(form.amaterno)}}
-    {{macro.campoNuevo(form.edad)}}
-    {{macro.campoNuevo(form.correo)}}
+  {{macro.campoNuevo(form.nombre,class="bg-neutral-secondary-medium border
+  border-default-medium text-heading text-sm rounded-base focus:ring-brand
+  focus:border-brand block w-full px-3 py-2.5 shadow-xs
+  placeholder:text-body")}}
+  {{macro.campoNuevo(form.apaterno,class="bg-neutral-secondary-medium border
+  border-default-medium text-heading text-sm rounded-base focus:ring-brand
+  focus:border-brand block w-full px-3 py-2.5 shadow-xs
+  placeholder:text-body")}}
+  {{macro.campoNuevo(form.amaterno,class="bg-neutral-secondary-medium border
+  border-default-medium text-heading text-sm rounded-base focus:ring-brand
+  focus:border-brand block w-full px-3 py-2.5 shadow-xs
+  placeholder:text-body")}}
+  {{macro.campoNuevo(form.edad,class="bg-neutral-secondary-medium border
+  border-default-medium text-heading text-sm rounded-base focus:ring-brand
+  focus:border-brand block w-full px-3 py-2.5 shadow-xs
+  placeholder:text-body")}}
+  {{macro.campoNuevo(form.matricula,class="bg-neutral-secondary-medium border
+  border-default-medium text-heading text-sm rounded-base focus:ring-brand
+  focus:border-brand block w-full px-3 py-2.5 shadow-xs
+  placeholder:text-body")}}
+  {{macro.campoNuevo(form.correo,class="bg-neutral-secondary-medium border
+  border-default-medium text-heading text-sm rounded-base focus:ring-brand
+  focus:border-brand block w-full px-3 py-2.5 shadow-xs
+  placeholder:text-body")}}
+  <button type="submit"
+    class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Enviar</button>
 </form>
+{%if data. %}
+<label>Resultado:{{data.nombre}},{{data.apaterno}},{{data.amaterno}},{{data.matricula}},{{data.email}}</label>
+{%endif%}
 {%endblock%}

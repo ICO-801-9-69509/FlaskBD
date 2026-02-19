@@ -8,4 +8,5 @@ class UserForm(Form):
     amaterno=StringField("Apellido Materno")
     edad=IntegerField("Edad")
     correo=EmailField("Email")
+    matricula=IntegerField("Matricula")
 
