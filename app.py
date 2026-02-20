@@ -9,20 +9,23 @@ def main():
 
 @app.route("/usuarios",methods=["GET","POST"])
 def usuario():
-    form=UserForm(flask.request.form)
-    if flask.request.method=="POST":
-        nom=form.nombre.data
-        ape=form.apaterno.data
-        ama=form.amaterno.data
-        mat=form.matricula.data
-        email=form.correo.data
-        return flask.render_template("usuarios.html",form=form,
-                                 data={'nombre':nom,
-                                       'apaterno':ape,
-                                       'amaterno':ama,
-                                       'matricula':mat,
-                                       'correo':email})
-    return flask.render_template("usuarios.html",form=form)
-
+    mat=0
+    nom=''
+    apa=''
+    ama=''
+    edad=0
+    email=''
+    usuarios_clas=UserForm(flask.request.form)
+    if flask.request.method=='POST':
+        mat=usuarios_clas.matricula.data
+        nom=usuarios_clas.nombre.data
+        apa=usuarios_clas.apaterno.data
+        ama=usuarios_clas.amaterno.data
+        edad=usuarios_clas.edad.data
+        email=usuarios_clas.correo.data
+    
+    return flask.render_template('usuarios.html',form=usuarios_clas,mat=mat,
+                           nom=nom,apa=apa,ama=ama,edad=edad,email=email)
+    
 if __name__=="__main__":
     app.run(debug=True,port=5001)

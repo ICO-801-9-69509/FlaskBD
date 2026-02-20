@@ -1,34 +1,59 @@
-{%extends "layout.html"%} {%block container%} {%import "macros.html" as macro%}
-<div class=""></div>
-<form action="/usuarios" method="post">
-  {{macro.campoNuevo(form.nombre,class="bg-neutral-secondary-medium border
-  border-default-medium text-heading text-sm rounded-base focus:ring-brand
-  focus:border-brand block w-full px-3 py-2.5 shadow-xs
-  placeholder:text-body")}}
-  {{macro.campoNuevo(form.apaterno,class="bg-neutral-secondary-medium border
-  border-default-medium text-heading text-sm rounded-base focus:ring-brand
-  focus:border-brand block w-full px-3 py-2.5 shadow-xs
-  placeholder:text-body")}}
-  {{macro.campoNuevo(form.amaterno,class="bg-neutral-secondary-medium border
-  border-default-medium text-heading text-sm rounded-base focus:ring-brand
-  focus:border-brand block w-full px-3 py-2.5 shadow-xs
-  placeholder:text-body")}}
-  {{macro.campoNuevo(form.edad,class="bg-neutral-secondary-medium border
-  border-default-medium text-heading text-sm rounded-base focus:ring-brand
-  focus:border-brand block w-full px-3 py-2.5 shadow-xs
-  placeholder:text-body")}}
-  {{macro.campoNuevo(form.matricula,class="bg-neutral-secondary-medium border
-  border-default-medium text-heading text-sm rounded-base focus:ring-brand
-  focus:border-brand block w-full px-3 py-2.5 shadow-xs
-  placeholder:text-body")}}
-  {{macro.campoNuevo(form.correo,class="bg-neutral-secondary-medium border
-  border-default-medium text-heading text-sm rounded-base focus:ring-brand
-  focus:border-brand block w-full px-3 py-2.5 shadow-xs
-  placeholder:text-body")}}
-  <button type="submit"
-    class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Enviar</button>
-</form>
-{%if data. %}
-<label>Resultado:{{data.nombre}},{{data.apaterno}},{{data.amaterno}},{{data.matricula}},{{data.email}}</label>
-{%endif%}
+{% extends "layout.html" %} {% block container %} {% import "macros.html" as
+macros %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <form action="" method="POST" novalidate class="max-w-md mx-auto">
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.matricula, class="bg-neutral-secondary-medium border
+      border-default-medium text-heading text-sm rounded-base focus:ring-brand
+      focus:border-brand block w-full px-3 py-2.5 shadow-xs
+      placeholder:text-body")}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.nombre, class="bg-neutral-secondary-medium border
+      border-default-medium text-heading text-sm rounded-base focus:ring-brand
+      focus:border-brand block w-full px-3 py-2.5 shadow-xs
+      placeholder:text-body")}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.apaterno,class="bg-neutral-secondary-medium border
+      border-default-medium text-heading text-sm rounded-base focus:ring-brand
+      focus:border-brand block w-full px-3 py-2.5 shadow-xs
+      placeholder:text-body")}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.amaterno,class="bg-neutral-secondary-medium border
+      border-default-medium text-heading text-sm rounded-base focus:ring-brand
+      focus:border-brand block w-full px-3 py-2.5 shadow-xs
+      placeholder:text-body")}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.edad,class="bg-neutral-secondary-medium border
+      border-default-medium text-heading text-sm rounded-base focus:ring-brand
+      focus:border-brand block w-full px-3 py-2.5 shadow-xs
+      placeholder:text-body")}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.correo, class="bg-neutral-secondary-medium border
+      border-default-medium text-heading text-sm rounded-base focus:ring-brand
+      focus:border-brand block w-full px-3 py-2.5 shadow-xs
+      placeholder:text-body")}}
+    </div>
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <input type="submit" id="btn1" name="btn1" value="Registrar"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" />
+      <a href="index" class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        Cancelar
+      </a>
+    </div>
+  </form>
+  <div class="relative z-0 w-full mb-5 group">
+    Resultado:
+    {{mat}},{{nom}},{{apa}} {{ama}},{{edad}},{{email}}
+  </div>
+
+</div>
 {%endblock%}
