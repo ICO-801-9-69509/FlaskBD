@@ -1,7 +1,13 @@
 import flask
 from forms import UserForm
+from flask_wtf.csrf import CSRFProtect
+from models import db,alumnos
+from config import DevelopmentConfig
 
 app=flask.Flask("__main__")
+app.config.from_object(DevelopmentConfig)
+db.init_app(app)
+csrf=CSRFProtect(app)
 
 @app.route("/")
 def main():
