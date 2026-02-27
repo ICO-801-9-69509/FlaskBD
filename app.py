@@ -34,4 +34,7 @@ def usuario():
                            nom=nom,apa=apa,ama=ama,edad=edad,email=email)
     
 if __name__=="__main__":
-    app.run(debug=True,port=5001)
+    csrf.init_app(app)
+    with app.app_context():
+        db.create_all()
+    app.run()
