@@ -1,7 +1,7 @@
 import flask
-from forms import UserForm
+from forms import TeacherForm, UserForm
 from flask_wtf.csrf import CSRFProtect
-from models import db,alumnos
+from models import db, Alumnos, Maestros
 from config import DevelopmentConfig
 
 app=flask.Flask("__main__")
@@ -9,9 +9,23 @@ app.config.from_object(DevelopmentConfig)
 db.init_app(app)
 csrf=CSRFProtect(app)
 
-@app.route("/")
-def main():
-    return flask.render_template("index.html")
+@app.route("/",methods=["GET","POST"])
+@app.route("/index")
+def index():
+    create_alumno =UserForm(flask.request.form)
+    #select * from alumnos
+    alumno=Alumnos.query.all()
+    return flask.render_template("index.html",form=create_alumno,alumno=alumno)
+
+@app.route("/maestros",methods=["GET","POST"])
+def maestros():
+    create_maestro=TeacherForm(flask.request.form)
+    maestro=Maestros.query.all()
+    return flask.render_template("maestros.html",form=create_maestro,maestro=maestro)
+
+    
+
+
 
 @app.route("/usuarios",methods=["GET","POST"])
 def usuario():
