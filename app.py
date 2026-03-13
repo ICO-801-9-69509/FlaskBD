@@ -3,10 +3,15 @@ from forms import TeacherForm, UserForm
 from flask_wtf.csrf import CSRFProtect
 from models import db, Alumnos, Maestros
 from config import DevelopmentConfig
+from flask_migrate import Migrate
 
 app=flask.Flask("__main__")
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
+migrate=Migrate(app,db) 
+#flask db init para crear migraciones solo se corre una vez
+#flask db migrate -m "mensaje" para subir los cambios
+#flask db upgrade realiza los cambios
 csrf=CSRFProtect(app)
 
 @app.route("/",methods=["GET","POST"])

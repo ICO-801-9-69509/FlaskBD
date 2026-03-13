@@ -6,11 +6,11 @@ db=SQLAlchemy()
 class Alumnos(db.Model):
     __tablename__='alumnos'
     matricula=db.Column(db.Integer,primary_key=True)
-    nombre=db.Column(db.String(50),nullable=False)
+    nombre=db.Column(db.String(150),nullable=False)
     apaterno=db.Column(db.String(50),nullable=False)
-    amaterno=db.Column(db.String(50),nullable=False)
+    amaterno=db.Column(db.String(100),nullable=False)
     edad=db.Column(db.Integer,nullable=False)
-    correo=db.Column(db.String(50),nullable=False)
+    correo=db.Column(db.String(100),nullable=True)
 
     def __init__(self,matricula,nombre,apaterno,amaterno,edad,correo):
         self.matricula=matricula
