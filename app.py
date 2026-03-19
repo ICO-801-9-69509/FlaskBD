@@ -28,9 +28,6 @@ def maestros():
     maestro=Maestros.query.all()
     return flask.render_template("maestros.html",form=create_maestro,maestro=maestro)
 
-    
-
-
 
 @app.route("/usuarios",methods=["GET","POST"])
 def usuario():
