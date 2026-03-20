@@ -1,3 +1,5 @@
+from wtforms.validators import email
+
 import flask
 from forms import TeacherForm, UserForm
 from flask_wtf.csrf import CSRFProtect
@@ -21,10 +23,27 @@ def index():
 
 @app.route("/alumnos",methods=["GET","POST"])
 def alumnos():
-    create_alumno =UserForm(flask.request.form)
     #select * from alumnos
     alumno=Alumno.query.all()
-    return flask.render_template("alumnos.html",form=create_alumno,alumno=alumno)
+    return flask.render_template("alumnos.html",alumno=alumno)
+
+@app.route('/alumnos/nuevo',methods=["GET","POST"])
+def nuevo_alumno():
+    create_alumno =UserForm(flask.request.form)
+    
+    if flask.request.method=="POST":
+        alum=Alumno(
+            matricula=create_alumno.matricula.data,
+            nombre=create_alumno.nombre.data,
+            amaterno=create_alumno.amaterno.data,
+            apaterno=create_alumno.apaterno.data,
+            edad=create_alumno.edad.data,
+            correo=create_alumno.correo.data)
+        db.session.add(alum)
+        db.session.commit()
+        return flask.redirect("alumnos.html")
+    return flask.render_template("nuevo_alumno.html",form=create_alumno)
+
 
 @app.route("/maestros",methods=["GET","POST"])
 def maestros():

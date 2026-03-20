@@ -11,11 +11,11 @@ class Alumno(db.Model):
     amaterno=db.Column(db.String(100),nullable=False)
     edad=db.Column(db.Integer,nullable=False)
     correo=db.Column(db.String(100),nullable=True)
-    created_date=db.Column(db.DateTime,default=datetime.datetime.now)
+    created_date=db.Column(db.DateTime,default=datetime.datetime.now())
     
     cursos= db.relationship("Curso",secondary="inscripciones",back_populates="alumnos")
 
-    def __init__(self,matricula,nombre,apaterno,amaterno,edad,correo,created_date):
+    def __init__(self,matricula,nombre,apaterno,amaterno,edad,correo,created_date=datetime.datetime.now()):
         self.matricula=matricula
         self.nombre=nombre
         self.apaterno=apaterno
@@ -50,7 +50,7 @@ class Inscripcion(db.Model):
     fecha_inscripcion=db.Column(db.DateTime,default=datetime.datetime.now)
 
     __table_args__=(
-        db.UniqueConstraint("id_alumno","id_curso",name="uq_alumno_curso")
+        db.UniqueConstraint("id_alumno","id_curso",name="uq_alumno_curso"),
     )
     
 
