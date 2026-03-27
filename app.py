@@ -14,6 +14,8 @@ migrate=Migrate(app,db)
 #flask db init para crear migraciones solo se corre una vez
 #flask db migrate -m "mensaje" para subir los cambios
 #flask db upgrade realiza los cambios
+
+#blueprint
 csrf=CSRFProtect(app)
 
 @app.route("/index")
@@ -21,7 +23,7 @@ csrf=CSRFProtect(app)
 def index():
     return flask.render_template("index.html")
 
-@app.route("/alumnos",methods=["GET","POST"])
+@app.route("/alumnos",methods=["GET",])
 def alumnos():
     #select * from alumnos
     alumno=Alumno.query.all()
@@ -41,8 +43,36 @@ def nuevo_alumno():
             correo=create_alumno.correo.data)
         db.session.add(alum)
         db.session.commit()
-        return flask.redirect("alumnos.html")
+        return flask.redirect("/alumnos")
     return flask.render_template("nuevo_alumno.html",form=create_alumno)
+
+@app.route('/alumnos/detalles/<int:id>')
+def detalles_alumno(id:int):
+    alumno=Alumno.query.get_or_404(id)
+    return flask.render_template("detalles_alumno.html",alumno=alumno)
+    
+
+@app.route("/alumnos/<int:id>",methods=["GET","POST"])
+def actualizar_alumno(id:int):
+    alumno=Alumno.query.get_or_404(id)
+    update_alumno=UserForm(flask.request.form)
+    if flask.request.method=="POST" and update_alumno.validate():
+        alumno.nombre = update_alumno.nombre.data
+        alumno.apaterno = update_alumno.apaterno.data
+        alumno.amaterno = update_alumno.amaterno.data
+        alumno.correo = update_alumno.correo.data
+        alumno.edad = update_alumno.edad.data
+        db.session.commit() 
+        return flask.redirect("/alumnos")
+    return flask.render_template("actualizar_alumno.html",form=update_alumno,alumno=alumno)
+
+@app.route("/alumnos/eliminar/<int:id>",methods=["POST"])
+def eliminar(id:int):
+    alumno=Alumno.query.get_or_404(id)
+    db.session.delete(alumno)
+    db.session.commit()
+    return flask.redirect("/alumnos")
+    
 
 
 @app.route("/maestros",methods=["GET","POST"])
@@ -50,6 +80,8 @@ def maestros():
     create_maestro=TeacherForm(flask.request.form)
     maestro=Maestro.query.all()
     return flask.render_template("maestros.html",form=create_maestro,maestro=maestro)
+
+
 
 @app.route("/usuarios",methods=["GET","POST"])
 def usuario():
@@ -76,3 +108,5 @@ if __name__=="__main__":
     with app.app_context():
         db.create_all()
     app.run()
+
+
