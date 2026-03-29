@@ -1,14 +1,20 @@
 from wtforms.validators import email
 
+
 import flask
 from forms import TeacherForm, UserForm
 from flask_wtf.csrf import CSRFProtect
 from models import db, Alumno, Maestro, Inscripcion, Curso
 from config import DevelopmentConfig
 from flask_migrate import Migrate
+from Maestros.routes import maestros_bp
+from Alumnos.routes import alumnos_bp
+
 
 app=flask.Flask("__main__")
 app.config.from_object(DevelopmentConfig)
+app.register_blueprint(maestros_bp)
+app.register_blueprint(alumnos_bp)
 db.init_app(app)
 migrate=Migrate(app,db) 
 #flask db init para crear migraciones solo se corre una vez
@@ -21,67 +27,7 @@ csrf=CSRFProtect(app)
 @app.route("/index")
 @app.route("/")
 def index():
-    return flask.render_template("index.html")
-
-@app.route("/alumnos",methods=["GET",])
-def alumnos():
-    #select * from alumnos
-    alumno=Alumno.query.all()
-    return flask.render_template("alumnos.html",alumno=alumno)
-
-@app.route('/alumnos/nuevo',methods=["GET","POST"])
-def nuevo_alumno():
-    create_alumno =UserForm(flask.request.form)
-    
-    if flask.request.method=="POST":
-        alum=Alumno(
-            matricula=create_alumno.matricula.data,
-            nombre=create_alumno.nombre.data,
-            amaterno=create_alumno.amaterno.data,
-            apaterno=create_alumno.apaterno.data,
-            edad=create_alumno.edad.data,
-            correo=create_alumno.correo.data)
-        db.session.add(alum)
-        db.session.commit()
-        return flask.redirect("/alumnos")
-    return flask.render_template("nuevo_alumno.html",form=create_alumno)
-
-@app.route('/alumnos/detalles/<int:id>')
-def detalles_alumno(id:int):
-    alumno=Alumno.query.get_or_404(id)
-    return flask.render_template("detalles_alumno.html",alumno=alumno)
-    
-
-@app.route("/alumnos/<int:id>",methods=["GET","POST"])
-def actualizar_alumno(id:int):
-    alumno=Alumno.query.get_or_404(id)
-    update_alumno=UserForm(flask.request.form)
-    if flask.request.method=="POST" and update_alumno.validate():
-        alumno.nombre = update_alumno.nombre.data
-        alumno.apaterno = update_alumno.apaterno.data
-        alumno.amaterno = update_alumno.amaterno.data
-        alumno.correo = update_alumno.correo.data
-        alumno.edad = update_alumno.edad.data
-        db.session.commit() 
-        return flask.redirect("/alumnos")
-    return flask.render_template("actualizar_alumno.html",form=update_alumno,alumno=alumno)
-
-@app.route("/alumnos/eliminar/<int:id>",methods=["POST"])
-def eliminar(id:int):
-    alumno=Alumno.query.get_or_404(id)
-    db.session.delete(alumno)
-    db.session.commit()
-    return flask.redirect("/alumnos")
-    
-
-
-@app.route("/maestros",methods=["GET","POST"])
-def maestros():
-    create_maestro=TeacherForm(flask.request.form)
-    maestro=Maestro.query.all()
-    return flask.render_template("maestros.html",form=create_maestro,maestro=maestro)
-
-
+    return flask.render_template("index.html")    
 
 @app.route("/usuarios",methods=["GET","POST"])
 def usuario():

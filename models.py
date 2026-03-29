@@ -24,6 +24,17 @@ class Alumno(db.Model):
         self.correo=correo
         self.created_date=created_date
 
+    def to_dict(self):
+        return {
+            "matricula":self.matricula,
+            "nombre":self.nombre,
+            "apaterno":self.apaterno,
+            "amaterno": self.amaterno,
+            "edad":self.edad,
+            "correo":self.correo,
+            "fecha de creacion":self.created_date.strftime('%Y-%m-%d %H:%M:%S')
+        }
+
 
 class Curso(db.Model):
     __tablename__="cursos"
@@ -42,6 +53,14 @@ class Curso(db.Model):
         self.descripcion=descripcion
         self.id_maestro=id_maestro
 
+    def to_dict(self):
+        return {
+            "id_curso": self.id_curso,
+            "nombre": self.nombre,
+            "descripcion": self.descripcion,
+            "id_maestro": self.id_maestro,
+        }
+
 class Inscripcion(db.Model):
     __tablename__="inscripciones"
     id_inscripcion=db.Column(db.Integer,primary_key=True, autoincrement=True)
@@ -59,6 +78,15 @@ class Inscripcion(db.Model):
         self.id_curso = id_curso
         if fecha_inscripcion:
             self.fecha_inscripcion = fecha_inscripcion
+
+    def to_dict(self):
+        return {
+            "id_inscripcion": self.id_inscripcion,
+            "id_alumno": self.id_alumno,
+            "id_curso": self.id_curso,
+            "fecha_inscripcion": self.fecha_inscripcion.strftime('%Y-%m-%d %H:%M:%S') if self.fecha_inscripcion else None
+        }
+
 
 
 class Maestro(db.Model):
@@ -83,3 +111,14 @@ class Maestro(db.Model):
         self.correo=correo
         self.especialidad=especialidad
         #self.cursos=cursosursos
+
+    def to_dict(self):
+        return {
+            "clave": self.clave,
+            "nombre": self.nombre,
+            "apaterno": self.apaterno,
+            "amaterno": self.amaterno,
+            "edad": self.edad,
+            "correo": self.correo,
+            "especialidad": self.especialidad,
+        }
