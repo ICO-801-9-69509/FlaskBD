@@ -1,6 +1,6 @@
-from wtforms import Form, StringField,IntegerField,EmailField,PasswordField,SubmitField, validators
+from wtforms import Form, StringField,IntegerField,EmailField,PasswordField,SubmitField, validators, SelectField, DateField
 
-
+from models import Alumno, Maestro, Curso, Inscripcion
 
 class UserForm(Form):
     nombre=StringField("Nombre")
@@ -19,3 +19,14 @@ class TeacherForm(Form):
     clave=IntegerField("clave")
     especialidad=StringField("Especialidad")
     #cursos
+
+class CourseForm(Form):
+    nombre=StringField("Nombre")
+    descripcion=StringField("Descripcion")
+    maestro=SelectField("Maestro", coerce=int)
+
+class InscriptionForm(Form):
+    curso=SelectField("Curso",coerce=int)
+    alumno=SelectField("Alumno",coerce=int)
+    fecha=DateField('fecha (opcional)', format='%Y-%m-%d')
+    

@@ -1,11 +1,20 @@
-{%macro campoNuevo(field)%}<!--Similar a una funcion-->
-<td>{{field.label}}</td>
-<dd>{{field(**kwargs) | safe}}</dd>
-{%if field.errors%}
-<ul>
-    {%for error in field.errors%}
-    <li>{{error}}</li>
-    {%endfor%}
-</ul>
-{%endif%}
-{%endmacro%}
+{% macro campoNuevo(field) %}
+<div class="relative z-0 w-full mb-5 group">
+    {{ field(**kwargs) }}
+
+    <label for="{{ field.id }}" 
+        class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+        {{ field.label.text }}
+    </label>
+
+    {% if field.errors %}
+    <ul class="text-red-500 text-xs mt-1">
+        {% for error in field.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endmacro %}
+
+

@@ -1,26 +1,31 @@
 {% extends "layout.html" %}
 {% block container %}
+<div class="flex items-center justify-center min-h-[calc(100vh-80px)] p-4">
+<div class="bg-gray-800 dark:bg-gray-900 block max-w-sm p-6 border border-gray-700 rounded-lg shadow-xl">
+    <h5 class="mb-4 text-xl font-bold tracking-tight text-white leading-tight">
+        ¿Está seguro de que desea eliminar este registro?
+    </h5>
+    
+    <div class="mb-6 space-y-2">
+        {% for key, value in alumno.items() %}
+        <p class="text-gray-300 text-sm">
+            <span class="font-semibold text-gray-100">{{ key }}:</span> {{ value }}
+        </p>
+        {% endfor %}
+    </div>
 
-
-<div class="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
-    <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">Está seguro de que desea eliminar el
-        siguiente registro?</h5>
-    {%for key,value in alumno.items()%}
-    <p class="text-body mb-6">{{key}}:{{value}}</p>
-    {%endfor%}
-
-
-    <form method="post" class="flex items-center gap-4">
+    <form method="post" class="flex items-center gap-3">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+        
+        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2.5 rounded-lg transition-colors">
             Eliminar
         </button>
 
-        <a href="/alumnos" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+        <a href="/alumnos" class="w-full text-center bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium px-4 py-2.5 rounded-lg transition-colors border border-gray-600">
             Cancelar
         </a>
     </form>
-
+</div>
 </div>
 
-{%endblock%}
+{% endblock %}
