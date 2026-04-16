@@ -6,9 +6,10 @@ from models import db, Curso, Inscripcion, Maestro, Alumno
 @cursos_bp.route("/cursos")
 def listar_cursos():
     cursos=Curso.query.all()
+    maestros=[]
     for curso in cursos:
-        maestro=Maestro.query.get(curso.id_maestro)
-    return flask.render_template("cursos.html",cursos=cursos,maestro=maestro)
+        curso.maestro = Maestro.query.get(curso.id_maestro)
+    return flask.render_template("cursos.html",cursos=cursos)
 
 @cursos_bp.route("/cursos/nuevo",methods=["GET","POST"])
 def agregar_curso():
@@ -44,9 +45,11 @@ def actualizar_curso(id):
 @cursos_bp.route("/cursos/eliminar/<int:id>",methods=["GET","POST"])
 def eliminar_curso(id):
     curso=Curso.query.get_or_404(id)
-    db.session.delete(curso)
-    db.session.commit()
-    return flask.redirect("/cursos")
+    if flask.request.method=="POST":
+        db.session.delete(curso)
+        db.session.commit()
+        return flask.redirect("/cursos")
+    return flask.render_template("eliminar_curso.html",curso=curso.to_dict())
 
 @cursos_bp.route("/cursos/inscripciones")
 def listar_inscripciones():
@@ -65,15 +68,12 @@ def agregar_inscripcion():
         return flask.redirect("/cursos/inscripciones")
     return flask.render_template("nueva_inscripcion.html",form=form)
 
-@cursos_bp.route("/cursos/eliminar",methods=["GET","POST"])
-def eliminar_inscripcion():
-    form=InscriptionForm(flask.request.form)
-    form.curso.choices=[(c.id_curso,c.nombre) for c in Curso.query.all()]
-    form.alumno.choices=[(a.matricula,f"{a.nombre} {a.apaterno} {a.amaterno}") for a in Alumno.query.all()]
+@cursos_bp.route("/cursos/inscripciones/eliminar/<int:id>",methods=["GET","POST"])
+def eliminar_inscripcion(id):
+    inscripcion=Inscripcion.query.get_or_404(id)
     if flask.request.method=="POST":
-        nueva=Inscripcion(id_alumno=form.alumno.data,id_curso=form.curso.data,fecha_inscripcion=form.fecha.data)
-        db.session.add(nueva)
+        db.session.delete(inscripcion)
         db.session.commit()
         return flask.redirect("/cursos/inscripciones")
-    return flask.render_template("nueva_inscripcion.html",form=form)
+    return flask.render_template("eliminar_inscripcion.html",inscripcion=inscripcion.to_dict())
 
