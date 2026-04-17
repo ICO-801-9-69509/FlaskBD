@@ -1,150 +1,305 @@
 {% extends "layout.html" %} {% block container %}
 
-<div class="py-32 relative overflow-x-auto sm:rounded-lg">
-  <a
-    href="Alumnos"
-    class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600"
-  >
-    <svg
-      class="w-6 h-6 text-white-800 dark:text-white"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-      />
-    </svg>
+<div class="flex flex-col w-full">
+  <section class="relative bg-gray-900 overflow-hidden w-full">
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-blue-900/50 to-gray-900/90 z-0"
+    ></div>
+    <img
+      src="https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg"
+      class="absolute inset-0 object-cover w-full h-full opacity-40"
+      alt="Background"
+    />
 
-    Nuevo
-  </a>
-  <table
-    class="py-2 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-  >
-    <thead
-      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    <div
+      class="relative z-10 px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-40"
     >
-      <tr>
-        <th scope="col" class="px-6 py-3">Nombre</th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Apaterno</div>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Amaterno</div>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Edad</div>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Correo</div>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Editar</div>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Detalles</div>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <div class="flex items-center">Eliminar</div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      {%for alum in alumno%}
-      <tr
-        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+      <h1
+        class="mb-4 text-5xl font-extrabold tracking-tight leading-none text-white md:text-6xl"
       >
-        <th
-          scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-        >
-          {{ alum.nombre }}
-        </th>
-        <td class="px-6 py-4">{{ alum.apaterno }}</td>
-        <td class="px-6 py-4">{{ alum.amaterno }}</td>
-        <td class="px-6 py-4">{{ alum.edad }}</td>
-        <td class="px-6 py-4">{{ alum.correo }}</td>
-        <td class="px-6 py-4 text-right">
-          <a
-            href="modificar?id={{ alum.id }}"
-            class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
-          >
-            <svg
-              class="w-6 h-6 text-white-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="square"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M7 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h1m4-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm7.441 1.559a1.907 1.907 0 0 1 0 2.698l-6.069 6.069L10 19l.674-3.372 6.07-6.07a1.907 1.907 0 0 1 2.697 0Z"
-              />
-            </svg>
+        Control Escolar <span class="text-blue-500">UDL</span>
+      </h1>
+      <br />
+      <p
+        class="mb-8 text-lg font-normal text-gray-300 lg:text-xl max-w-2xl mx-auto"
+      >
+        Administra de forma eficiente alumnos, maestros y cursos en una sola
+        plataforma integrada.
+      </p>
 
-            Editar
-          </a>
-        </td>
-        <td class="px-6 py-4 text-right">
-          <a
-            href="detalles?id={{ alum.id }}"
-            class="flex items-center gap-2 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
+      <div
+        class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4"
+      >
+        <a
+          href="/cursos"
+          class="inline-flex justify-center items-center py-3 px-6 text-base font-medium text-white rounded-lg bg-blue-700 hover:bg-blue-800 transition"
+        >
+          Explorar Cursos
+          <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="#modulos"
+          class="inline-flex justify-center items-center py-3 px-6 text-base font-medium text-white border border-gray-600 rounded-lg hover:bg-gray-800 transition"
+        >
+          Ver Módulos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="modulos" class="w-full py-20 bg-gray-900 dark:bg-gray-950">
+    <div class="px-4 mx-auto max-w-screen-xl">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          class="p-8 bg-gray-800/50 border border-gray-700 rounded-2xl hover:bg-gray-800 transition-all duration-300"
+        >
+          <div
+            class="flex justify-center items-center mb-5 w-14 h-14 rounded-xl bg-blue-900/50 text-blue-400"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
               <path
-                d="M10 2a8 8 0 100 16 8 8 0 000-16zM8.5 11l3-3-3-3 1-1 4 4-4 4-1-1z"
-              />
+                d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"
+              ></path>
             </svg>
-            Detalles
-          </a>
-        </td>
-        <td class="px-6 py-4 text-right">
+          </div>
+          <h3 class="mb-3 text-2xl font-bold text-white">Alumnos</h3>
+          <p class="mb-5 text-gray-400 leading-relaxed">
+            Registro, consulta y edición de la matrícula estudiantil actual de
+            manera simplificada.
+          </p>
           <a
-            href="eliminar?id={{ alum.id }}"
-            class="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            href="/alumnos"
+            class="text-blue-500 font-semibold hover:text-blue-400 inline-flex items-center group"
           >
+            Gestionar Alumnos
             <svg
-              class="w-6 h-6 text-white-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
               fill="none"
+              stroke="currentColor"
               viewBox="0 0 24 24"
             >
               <path
-                stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
-              />
+                d="M9 5l7 7-7 7"
+              ></path>
             </svg>
-
-            Eliminar
           </a>
-        </td>
-      </tr>
-      {%endfor%}
-    </tbody>
-  </table>
+        </div>
+
+        <div
+          class="p-8 bg-gray-800/50 border border-gray-700 rounded-2xl hover:bg-gray-800 transition-all duration-300"
+        >
+          <div
+            class="flex justify-center items-center mb-5 w-14 h-14 rounded-xl bg-purple-900/50 text-purple-400"
+          >
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="mb-3 text-2xl font-bold text-white">Maestros</h3>
+          <p class="mb-5 text-gray-400 leading-relaxed">
+            Administración del cuerpo docente, asignación de materias y perfiles
+            académicos.
+          </p>
+          <a
+            href="/maestros"
+            class="text-purple-500 font-semibold hover:text-purple-400 inline-flex items-center group"
+          >
+            Gestionar Maestros
+            <svg
+              class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </a>
+        </div>
+
+        <div
+          class="p-8 bg-gray-800/50 border border-gray-700 rounded-2xl hover:bg-gray-800 transition-all duration-300"
+        >
+          <div
+            class="flex justify-center items-center mb-5 w-14 h-14 rounded-xl bg-green-900/50 text-green-400"
+          >
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M10.394 2.813a1 1 0 00-.788 0l-7 3a1 1 0 000 1.838l7 3a1 1 0 00.788 0l7-3a1 1 0 000-1.838l-7-3z"
+              ></path>
+              <path
+                d="M4.293 8.94l5.816 2.493a1 1 0 00.788 0l5.816-2.493m-11.632 2.521L10 13.917l5.109-2.456a1 1 0 001 1.838L10 16.305l-6.109-2.93a1 1 0 011-1.838z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="mb-3 text-2xl font-bold text-white">Cursos</h3>
+          <p class="mb-5 text-gray-400 leading-relaxed">
+            Catálogo de materias disponibles, gestión de inscripciones y
+            horarios escolares.
+          </p>
+          <a
+            href="/cursos"
+            class="text-green-500 font-semibold hover:text-green-400 inline-flex items-center group"
+          >
+            Gestionar Cursos
+            <svg
+              class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </a>
+        </div>
+
+        <div
+          class="p-8 bg-gray-800/50 border border-gray-700 rounded-2xl hover:bg-gray-800 transition-all duration-300"
+        >
+          <div
+            class="flex justify-center items-center mb-5 w-14 h-14 rounded-xl bg-purple-900/50 text-purple-400"
+          >
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="mb-3 text-2xl font-bold text-white">
+            Consulta cursos impartidos
+          </h3>
+          <p class="mb-5 text-gray-400 leading-relaxed">
+            Cursos impartidos por un maestro especifico
+          </p>
+          <a
+            href="/consultas/impartidos"
+            class="text-purple-500 font-semibold hover:text-purple-400 inline-flex items-center group"
+          >
+            Ver Cursos
+            <svg
+              class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </a>
+        </div>
+
+        <div
+          class="p-8 bg-gray-800/50 border border-gray-700 rounded-2xl hover:bg-gray-800 transition-all duration-300"
+        >
+          <div
+            class="flex justify-center items-center mb-5 w-14 h-14 rounded-xl bg-purple-900/50 text-purple-400"
+          >
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="mb-3 text-2xl font-bold text-white">
+            Consulta Inscripciones de un Alumno
+          </h3>
+          <p class="mb-5 text-gray-400 leading-relaxed">
+            Revisar los cursos a los cuales está inscrito un alumno
+          </p>
+          <a
+            href="/consultas/inscrito"
+            class="text-purple-500 font-semibold hover:text-purple-400 inline-flex items-center group"
+          >
+            Ver Inscriciones
+            <svg
+              class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </a>
+        </div>
+
+        <div
+          class="p-8 bg-gray-800/50 border border-gray-700 rounded-2xl hover:bg-gray-800 transition-all duration-300"
+        >
+          <div
+            class="flex justify-center items-center mb-5 w-14 h-14 rounded-xl bg-purple-900/50 text-purple-400"
+          >
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="mb-3 text-2xl font-bold text-white">
+            Consultar Alumnos de un curso
+          </h3>
+          <p class="mb-5 text-gray-400 leading-relaxed">
+            ver alumnos inscritos a un curso
+          </p>
+          <a
+            href="/consultas/matriculados"
+            class="text-purple-500 font-semibold hover:text-purple-400 inline-flex items-center group"
+          >
+            Ver alumnos inscritos
+            <svg
+              class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 {% endblock %}
