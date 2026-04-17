@@ -1,7 +1,7 @@
 import flask
 from . import alumnos_bp
 from forms import UserForm
-from models import db, Alumno
+from models import Inscripcion, db, Alumno
 
 #flask --app Alumnos run
 #python -m Alumnos.__init__
@@ -54,6 +54,7 @@ def actualizar_alumno(id:int):
 def eliminar(id:int):
     alumno=Alumno.query.get_or_404(id)
     if flask.request.method=="POST":
+        Inscripcion.query.filter_by(id_alumno=id).delete() #elimianr inscripciones del alumno
         db.session.delete(alumno)
         db.session.commit()
         return flask.redirect("/alumnos")

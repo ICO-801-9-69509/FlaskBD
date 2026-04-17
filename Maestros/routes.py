@@ -1,7 +1,7 @@
 import flask
 from . import maestros_bp
 from forms import TeacherForm
-from models import db, Maestro
+from models import Curso, db, Maestro
 
 @maestros_bp.route("/maestros",methods=["GET","POST"])
 def maestros():
@@ -46,7 +46,35 @@ def actualizar_maestro(id:int):
 def eliminar_maestro(id:int):
     maestro=Maestro.query.get_or_404(id)
     if flask.request.method=="POST":
+        maestro_cursos=Curso.query.filter_by(id_maestro=id).all()
+        if len(maestro_cursos) > 0:
+            otros_maestros = Maestro.query.filter(Maestro.clave != id).all()
+            return flask.render_template("corregir_cursos.html",maestro=maestro.to_dict(),cursos=maestro_cursos,maestros=otros_maestros)
         db.session.delete(maestro)
         db.session.commit()
         return flask.redirect("/maestros")
     return flask.render_template("eliminar_maestro.html",maestro=maestro.to_dict())
+
+@maestros_bp.route("/maestros/reasignar-cursos",methods=["POST"])
+def reasignar_cursos():
+    maestro_id = flask.request.form.get('maestro_id')
+    maestro_original = Maestro.query.get_or_404(maestro_id)
+    cursos_a_actualizar = Curso.query.filter_by(id_maestro=maestro_id).all()
+    
+    try:
+        for curso in cursos_a_actualizar:
+            nuevo_maestro_id = flask.request.form.get(f'maestro_curso_{curso.id_curso}')
+            if nuevo_maestro_id:
+                curso.id_maestro = nuevo_maestro_id
+        
+        db.session.commit()
+        
+        db.session.delete(maestro_original)
+        db.session.commit()
+        
+        flask.flash(f"Maestro {maestro_original.nombre} eliminado exitosamente y sus cursos fueron reasignados.", "success")
+        return flask.redirect("/maestros")
+    except Exception as e:
+        db.session.rollback()
+        flask.flash(f"Error al reasignar los cursos: {str(e)}", "error")
+        return flask.redirect(f"/maestros/eliminar/{maestro_id}")

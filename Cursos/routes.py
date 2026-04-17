@@ -46,6 +46,7 @@ def actualizar_curso(id):
 def eliminar_curso(id):
     curso=Curso.query.get_or_404(id)
     if flask.request.method=="POST":
+        Inscripcion.query.filter_by(id_curso=id).delete() 
         db.session.delete(curso)
         db.session.commit()
         return flask.redirect("/cursos")
