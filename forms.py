@@ -29,4 +29,13 @@ class InscriptionForm(Form):
     curso=SelectField("Curso",coerce=int)
     alumno=SelectField("Alumno",coerce=int)
     fecha=DateField('fecha (opcional)', format='%Y-%m-%d')
+
+
+class Filtro(Form):
+    drop = SelectField(0, coerce=int)
+    def __init__(self, name, *args, **kwargs):
+        super(Filtro, self).__init__(*args, **kwargs)
+        self.drop.label.text = name
+
+    
     

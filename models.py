@@ -67,8 +67,9 @@ class Inscripcion(db.Model):
     id_curso=db.Column(db.Integer, db.ForeignKey("cursos.id_curso"),nullable=False)
     fecha_inscripcion=db.Column(db.DateTime,default=datetime.datetime.now)
 
-    alumno = db.relationship("Alumno")
-    curso = db.relationship("Curso")
+    alumno = db.relationship("Alumno", backref="inscripciones_list", overlaps="alumnos,cursos")
+    curso = db.relationship("Curso", backref="inscripciones_list", overlaps="alumnos,cursos")
+
 
     __table_args__=(
         db.UniqueConstraint("id_alumno","id_curso",name="uq_alumno_curso"),
